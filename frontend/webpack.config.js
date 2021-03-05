@@ -1,14 +1,19 @@
 const path = require('path')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const bundlePath = [path.join(__dirname, 'src')]
 /** @type {import('webpack').Configuration} */
 const config = {
     mode: 'development',
-    entry: './src/index.tsx',
+    entry: ['react-hot-loader/patch', './src/index.js'],
     output: {
         filename: 'bundle.js',
         path: path.join(__dirname, 'dist'),
+    },
+    devtool: 'eval-cheap-module-source-map',
+    resolve: {
+        extensions: ['.js', '.ts', '.tsx']
     },
     module: {
         rules: [
@@ -33,7 +38,10 @@ const config = {
         ]
     },
     plugins: [
-        new CleanWebpackPlugin()
+        new CleanWebpackPlugin(),
+        new HtmlWebpackPlugin({
+            template: path.join(__dirname, 'index.html')
+        })
     ]
 }
 
