@@ -2,18 +2,22 @@ const path = require('path')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
-const bundlePath = [path.join(__dirname, 'src')]
+const bundlePath = [path.join(__dirname, 'src'), path.join(__dirname, 'mock')]
 /** @type {import('webpack').Configuration} */
 const config = {
     mode: 'development',
     entry: ['react-hot-loader/patch', './src/index.js'],
     output: {
         filename: 'bundle.js',
+        publicPath: './',
         path: path.join(__dirname, 'dist'),
     },
     devtool: 'eval-cheap-module-source-map',
     resolve: {
-        extensions: ['.js', '.ts', '.tsx']
+        extensions: ['.js', '.ts', '.tsx'],
+        alias: {
+            '@': '/src'
+        }
     },
     module: {
         rules: [
@@ -40,7 +44,7 @@ const config = {
     plugins: [
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
-            template: path.join(__dirname, 'index.html')
+            template: path.join(__dirname, 'index.html'),
         })
     ]
 }
