@@ -1,5 +1,5 @@
 /**
- * 分段获取异步请求结果
+ * 分段获取异步请求结果(vue3里写了一个跟这个差不多一样功能的函数只用了15行，我吐了)
  * @param promises 
  * @param max 
  * @param maxError 
